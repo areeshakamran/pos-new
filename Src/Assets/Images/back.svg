@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="Group_282" data-name="Group 282" transform="translate(-2.393 -2.393)">
+    <rect id="Rectangle_62" data-name="Rectangle 62" width="32" height="32" rx="16" transform="translate(2.393 2.393)" fill="#00598e"/>
+    <path id="Icon_ionic-md-arrow-round-back" data-name="Icon ionic-md-arrow-round-back" d="M21.948,12.942H11.079l4.215-3.919a1.6,1.6,0,0,0,0-2.231,1.532,1.532,0,0,0-2.194,0L6.082,13.406a1.481,1.481,0,0,0-.457,1.105v.02a1.481,1.481,0,0,0,.457,1.105L13.1,22.249a1.532,1.532,0,0,0,2.194,0,1.6,1.6,0,0,0,0-2.231L11.074,16.1H21.942A1.566,1.566,0,0,0,23.5,14.521,1.549,1.549,0,0,0,21.948,12.942Z" transform="translate(3.188 4.063)" fill="#fff"/>
+  </g>
+</svg>
