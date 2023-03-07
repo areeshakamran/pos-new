@@ -11,6 +11,7 @@ import { ProductAndCategoryDatabase } from "./Src/CreateDatabase/ProductAndCateg
 import { SaleDatabase } from "./Src/CreateDatabase/SaleDatabase";
 import * as I18n from './Src/i18n';
 import store from './Src/Store';
+import fn from './Src/i18n/fn.json'
 import { BackSendtoDraftsToDatabase } from './Src/Store/Actions/DraftAction';
 import { BackToOnline, Internet, ReopenApp } from './Src/Store/Actions/HomeAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -41,7 +42,7 @@ const AppRedux = () => {
             const lang = await AsyncStorage.getItem('language');
             if (lang !== null) {
                 const parse = JSON.parse(lang)
-                handleLocalizationChange(lang);
+                handleLocalizationChange(parse);
             } else {
                 handleLocalizationChange('en')
             };
@@ -58,7 +59,18 @@ const AppRedux = () => {
         [locale],
     );
 
+    const updatelanguage = async () => {
+        const updatelang = await AsyncStorage.getItem('Updatelanguage');
+        const parselang = JSON.parse(updatelang)
+        for (let i = 0; i < Object.keys(parselang).length; i++) {
+            let index = Object.keys(parselang)[i]
+            fn[index] = parselang[index]
+        }
+
+    }
+
     React.useEffect(() => {
+        updatelanguage()
         getLanguage();
         EventRegister.addEventListener('changeLanguage', handleLocalizationChange);
         return () => {
@@ -69,6 +81,12 @@ const AppRedux = () => {
         };
     }, []);
     // end
+
+    // Update language 
+
+
+
+    // update language end
     const netInfo = useNetInfo();
     let internet = React.useMemo(() => {
         return netInfo.isConnected

@@ -1,9 +1,9 @@
-import { View, Text, Image } from 'react-native'
-import React, { useState, useContext } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useContext, useEffect, useState } from 'react';
+import { Image, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import LocalizationContext from '../../LocalizationContext';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import { useEffect } from 'react';
+import LocalizationContext from '../../LocalizationContext';
 
 export default function SwitchLanguage() {
     const { setLocale, t, locale } = useContext(LocalizationContext);
@@ -39,10 +39,13 @@ export default function SwitchLanguage() {
                 items={items}
                 setOpen={setOpen}
                 setValue={setValue}
-                onChangeValue={(value) => {
-                    console.log(value)
+                onChangeValue={async (value) => {
                     setValue(value)
                     setLocale(value)
+                    await AsyncStorage.setItem(
+                        'language',
+                        JSON.stringify(value),
+                    );
                 }}
                 setItems={setItems}
                 textStyle={{
