@@ -1,26 +1,30 @@
-import { FlatList, Image, StyleSheet, Text, View, RefreshControl } from 'react-native';
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@react-navigation/native';
+import React from 'react';
+import { FlatList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import {
   heightPercentageToDP,
-  widthPercentageToDP,
+  widthPercentageToDP
 } from 'react-native-responsive-screen';
-import CenterViewHeader from './CenterViewHeader';
-import HomeCustomeButton from './HomeCustomeButton';
+import { connect } from 'react-redux';
+import LocalizationContext from '../../../../LocalizationContext';
+import BlueGridView from '../../../Assets/Images/blueGridView.svg';
+import BlueListView from '../../../Assets/Images/BlueListView.svg';
 import FillStar from '../../../Assets/Images/fill-star.svg';
 import UnFillStar from '../../../Assets/Images/unfill-star.svg';
 import WhiteGridView from '../../../Assets/Images/whiteGridView.svg';
-import BlueListView from '../../../Assets/Images/BlueListView.svg';
-import BlueGridView from '../../../Assets/Images/blueGridView.svg';
 import WhiteListView from '../../../Assets/Images/whiteListView.svg';
+import { FeatureProduct, getMoreProduct } from '../../../Store/Actions/HomeAction';
+import CenterViewHeader from './CenterViewHeader';
+import HomeCustomeButton from './HomeCustomeButton';
 import ProductItemCart from './ProductItemCart';
-import { connect } from 'react-redux';
-import { getMoreProduct, FeatureProduct } from '../../../Store/Actions/HomeAction';
-import { ActivityIndicator } from 'react-native-paper';
+import SwitchLanguage from '../../../Component/SwitchLanguage';
 
 function CenterView(props) {
   const [list, setList] = React.useState(false);
   const { colors } = useTheme();
+  const { t, locale, setLocale } = React.useContext(LocalizationContext);
 
   const ClickAble = str => {
     if (str == 'Star') {
@@ -51,7 +55,7 @@ function CenterView(props) {
               fontSize: heightPercentageToDP('3%'),
               color: colors.PrimaryColor,
             }}>
-            Products
+            {t('Products')}
           </Text>
 
           <HomeCustomeButton
@@ -68,8 +72,57 @@ function CenterView(props) {
             ]}
           />
         </View>
+       <View style={{flexDirection:'row'}}>
+        <SwitchLanguage />
+        <View style={{ flexDirection: 'row' , height:"50%" ,alignItems:"center" , marginLeft:12 ,marginTop:"5%" }}>
+      
+          {/* <View style={{
+            flexDirection: "row",
+            marginRight: widthPercentageToDP('1'),
+            justifyContent:"center"
+          }}>
+            <Text
+              onPress={async () => {
+                setLocale('en')
+                await AsyncStorage.setItem(
+                  'language',
+                  JSON.stringify('en'),
+                );
+              }}
+              style={{
+                textAlign: 'center',
+                fontFamily: "Poppins-Bold",
+                color: locale == 'en' ? colors.PrimaryColor : '#85C9E9',
+                fontSize: heightPercentageToDP('2.5%'),
+                marginRight: widthPercentageToDP('1')
 
-        <View style={{ flexDirection: 'row' }}>
+              }}>
+              {t('English')}
+            </Text>
+            <TouchableOpacity
+              onPress={async () => {
+                setLocale('fn')
+                await AsyncStorage.setItem(
+                  'language',
+                  JSON.stringify('fn'),
+                );
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontFamily: "Poppins-Bold",
+                  color: locale == 'fn' ? colors.PrimaryColor : "#0094B7",
+                  fontSize: heightPercentageToDP('2.5%'),
+
+                }}>
+                {t("French")}
+              </Text>
+
+            </TouchableOpacity>
+
+
+          </View> */}
           <HomeCustomeButton
             onpress={() => ClickAble('ListView')}
             Icon={list ? BlueGridView : WhiteGridView}
@@ -79,6 +132,7 @@ function CenterView(props) {
               styles.IconView,
               {
                 backgroundColor: list ? colors.light : colors.PrimaryColor,
+                
               },
             ]}
           />
@@ -96,6 +150,7 @@ function CenterView(props) {
               },
             ]}
           />
+        </View>
         </View>
       </View>
 

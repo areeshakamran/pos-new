@@ -21,6 +21,7 @@ import ModifiersModal from './ModifiersModal';
 import CustomModal from '../../../Component/CustomModal';
 import { connect } from 'react-redux';
 import { NumberFormat } from '../../../Confiq/Helper';
+import LocalizationContext from '../../../../LocalizationContext';
 import {
   DeleteAllCart,
   IncreaseAndMinusQuantity,
@@ -54,6 +55,7 @@ function CartItemsCompnentRight(props) {
   const [item, setitem] = useState({});
   const [couponamountstate, setcouponamountstate] = useState(0)
   const [remainingSubTotal, setremainingSubTotal] = useState(0)
+  const { t } = React.useContext(LocalizationContext);
 
   const [modifiers, setmodifiers] = useState([]);
   const Clickable = str => {
@@ -122,11 +124,11 @@ function CartItemsCompnentRight(props) {
   function calculateDiscountAndCoupon() {
 
     const total = parseFloat(CulculateSubTotal());
-    
+
     const taxapplied = (props?.Cart?.tax / 100) * parseFloat(total);
     settax(NumberFormat(taxapplied));
     // var orginalTotal = parseFloat(NumberFormat(total)) + parseFloat(NumberFormat(taxapplied))
-    var orginalTotal = parseFloat(NumberFormat(total)) 
+    var orginalTotal = parseFloat(NumberFormat(total))
     if (firstadd == 'coupon') {
       if (props?.Cart?.coupontype == '%') {
         var couponamount = (props?.Cart?.coupons / 100) * orginalTotal;
@@ -206,7 +208,7 @@ function CartItemsCompnentRight(props) {
             fontSize: heightPercentageToDP('2%'),
             fontFamily: 'Poppins-SemiBold',
           }}>
-          Cart Items
+          {t('Cart Items')}
         </Text>
 
         <HomeCustomeButton
@@ -397,7 +399,7 @@ function CartItemsCompnentRight(props) {
               color: colors.PrimaryColor,
               fontSize: heightPercentageToDP('2.2%'),
             }}>
-            {'SubTotal'}
+            {t('Sub Total')}
           </Text>
           <Text
             style={{
@@ -450,7 +452,7 @@ function CartItemsCompnentRight(props) {
                   color: colors.lightSecondayColor,
                 },
               ]}>
-              {'Coupon'}
+              {t('Coupon')}
             </Text>
           </View>
 
@@ -474,7 +476,7 @@ function CartItemsCompnentRight(props) {
                 color: colors.lightSecondayColor,
               },
             ]}>
-            {'Discount'}
+            {t('Discount')}
           </Text>
           <Text
             style={[
@@ -495,7 +497,7 @@ function CartItemsCompnentRight(props) {
                 color: colors.lightSecondayColor,
               },
             ]}>
-            {'Tax'}
+            {t('Tax')}
           </Text>
           <Text
             style={[
@@ -516,7 +518,7 @@ function CartItemsCompnentRight(props) {
           }}>
           <HomeCustomeButton
             onpress={() => Clickable('Coupon')}
-            title="Coupon"
+            title={t("Coupon")}
             style={[
               styles.ViewStyle,
               {
@@ -537,7 +539,7 @@ function CartItemsCompnentRight(props) {
 
           <HomeCustomeButton
             onpress={() => Clickable('Discount')}
-            title="Discount"
+            title={t("Discount")}
             style={[
               styles.ViewStyle,
               {
@@ -622,7 +624,7 @@ function CartItemsCompnentRight(props) {
               color: colors.PrimaryColor,
               fontSize: heightPercentageToDP('3.2%'),
             }}>
-            {'Total'}
+            {t('Total')}
           </Text>
           <Text
             style={{
@@ -691,7 +693,7 @@ function CartItemsCompnentRight(props) {
                 }
               }
             }}
-            title={props?.main ? 'Checkout' : 'Complete'}
+            title={props?.main ? t('Check Out') : t('Complete')}
             style={{
               padding: widthPercentageToDP('1%'),
               borderRadius: 2,
@@ -729,8 +731,8 @@ function CartItemsCompnentRight(props) {
       />
 
       <CustomModal
-        title="Apply Coupon"
-        PlaceholderTitle="Enter Coupon Code"
+        title={t("Apply Coupon")}
+        PlaceholderTitle={t("Enter Coupon Code")}
         modalVisible={CouponModal}
         onModalClose={() => {
           setCouponModal(false);
@@ -739,7 +741,7 @@ function CartItemsCompnentRight(props) {
           styles.CustomeAlertView,
           {
             width: widthPercentageToDP('30%'),
-            height: heightPercentageToDP('30%'),
+            height: heightPercentageToDP('32%'),
           },
         ]}
         setValue={(value, type) => {
@@ -749,9 +751,9 @@ function CartItemsCompnentRight(props) {
 
       <CustomModal
         keyboarType="number-pad"
-        type="Select Discount Type"
-        title="Apply Discount"
-        PlaceholderTitle="Enter Discount"
+        type={t("Select Discount Type")}
+        title={t("Apply Discount")}
+        PlaceholderTitle={t("Enter Discount")}
         modalVisible={DiscountModal}
         onModalClose={() => {
           setDiscountModal(false);
@@ -771,10 +773,10 @@ function CartItemsCompnentRight(props) {
             var couponamount = props?.Cart?.coupons;
           }
           setcouponamountstate(couponamount)
-          var Orginaltotal = parseFloat(CulculateSubTotal())  - couponamount;
+          var Orginaltotal = parseFloat(CulculateSubTotal()) - couponamount;
           if (parseInt(value) == 0 || value == '' || value == null) {
             setTotal(NumberFormat(Orginaltotal));
-            props?.ChangeTotal(parseFloat(NumberFormat(Orginaltotal)) +  parseFloat(tax));
+            props?.ChangeTotal(parseFloat(NumberFormat(Orginaltotal)) + parseFloat(tax));
             setdiscount(0);
           } else {
             if (type) {
@@ -804,7 +806,7 @@ function CartItemsCompnentRight(props) {
                   setdiscount(value);
                   setTotal(NumberFormat((Orginaltotal - parseFloat(value)) + parseFloat(tax)));
                   props?.ChangeTotal(
-                    NumberFormat((Orginaltotal - parseFloat(value)) +  parseFloat(tax)),
+                    NumberFormat((Orginaltotal - parseFloat(value)) + parseFloat(tax)),
                   );
                 }
               }
@@ -828,7 +830,7 @@ function CartItemsCompnentRight(props) {
                 setdiscounttype('%')
                 setTotal(NumberFormat((Orginaltotal - parseFloat(percentage)) + parseFloat(tax)));
                 props?.ChangeTotal(
-                  NumberFormat((Orginaltotal - parseFloat(percentage)) +  parseFloat(tax)),
+                  NumberFormat((Orginaltotal - parseFloat(percentage)) + parseFloat(tax)),
                 );
               }
             }

@@ -7,8 +7,10 @@ import {
 import { useTheme } from '@react-navigation/native';
 import CustomInput from '../Component/CustomInput'
 import HomeCustomeButton from '../Modules/Home/Components/HomeCustomeButton';
+import LocalizationContext from '../../LocalizationContext';
 
 export default function CustomModal(props) {
+    const { t } = React.useContext(LocalizationContext);
     const [fixedPercentageState, setFixedPercentageState] = React.useState(false)
     const { colors } = useTheme()
     const [value, setvalues] = useState(props?.value)
@@ -33,10 +35,10 @@ export default function CustomModal(props) {
                         {props.title}
                     </Text>
 
-                    {props.title == 'Apply Coupon' || props.title == 'Open Cash Adjustment'
+                    {props.title == t('Apply Coupon') || props.title == t('Open Cash Adjustment')
                         ? null
                         :
-                        <View style={{ marginVertical: heightPercentageToDP('2%') }}>
+                        <View style={{ marginVertical: heightPercentageToDP('1%') }}>
                             <Text style={{
                                 fontFamily: 'Poppins-SemiBold',
                                 color: colors.PrimaryColor,
@@ -49,7 +51,7 @@ export default function CustomModal(props) {
                             <View style={[styles.MainContainer]}>
                                 <HomeCustomeButton
                                     onpress={() => setFixedPercentageState(!fixedPercentageState)}
-                                    title={'Fixed'}
+                                    title={t('Fixed')}
                                     style={[styles.fixedPercetageView, {
                                         borderColor: colors.PrimaryColor,
                                         borderWidth: fixedPercentageState ? 0 : 1,
@@ -61,7 +63,7 @@ export default function CustomModal(props) {
                                 />
                                 <HomeCustomeButton
                                     onpress={() => setFixedPercentageState(!fixedPercentageState)}
-                                    title={'Percentage'}
+                                    title={t('Percentage')}
                                     style={[styles.fixedPercetageView, {
                                         marginHorizontal: widthPercentageToDP('0.5%'),
                                         borderColor: colors.PrimaryColor,
@@ -90,8 +92,8 @@ export default function CustomModal(props) {
                         style={[styles.MainContainer]}>
                         <HomeCustomeButton
                             onpress={props?.onModalClose}
-                            onPressIn={props.title == 'Open Cash Adjustment' ? () => console.log('Open Cash Adjustment') : () => props?.setValue(value, fixedPercentageState)}
-                            title={'Apply'}
+                            onPressIn={props.title == t('Open Cash Adjustment') ? () => console.log('Open Cash Adjustment') : () => props?.setValue(value, fixedPercentageState)}
+                            title={t('Apply')}
                             style={[styles.ViewStyle, {
                                 backgroundColor: colors.SuccessColor,
                             }]}
@@ -101,7 +103,7 @@ export default function CustomModal(props) {
                         />
                         <HomeCustomeButton
                             onpress={props?.onModalClose}
-                            title={'Cancel'}
+                            title={t('Cancel')}
                             style={[styles.ViewStyle, {
                                 backgroundColor: colors.deleteColor,
                             }]}

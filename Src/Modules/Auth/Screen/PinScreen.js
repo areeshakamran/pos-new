@@ -21,12 +21,14 @@ import Cross from '../../../Assets/Images/cross.svg';
 import HomeCustomeButton from '../../Home/Components/HomeCustomeButton';
 import { VerifyCeshiers } from '../../../Store/Actions/UserAction';
 import store from '../../../Store';
+import LocalizationContext from '../../../../LocalizationContext';
 
 const number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function PinScreen(props) {
   const { colors } = useTheme();
   const [pin, setpin] = useState('');
+  const { t } = React.useContext(LocalizationContext);
   return (
     <Container style={{ justifyContent: 'center', alignItems: 'center' }}>
       <AntDesign
@@ -52,7 +54,7 @@ export default function PinScreen(props) {
             fontSize: hp('3.5'),
             fontFamily: 'Poppins-Bold',
           }}>
-          Pin Code
+          {t('Pin Code')}
         </Text>
         <TextInput
           editable={false}
@@ -176,7 +178,7 @@ export default function PinScreen(props) {
           }}>
           <CustomButton
             onPress={() => store.dispatch(VerifyCeshiers(props?.route?.params?.pin, pin, props?.route?.params?.isActive, props?.navigation))}
-            title="ENTER"
+            title={t('Enter')}
           />
         </View>
       </View>

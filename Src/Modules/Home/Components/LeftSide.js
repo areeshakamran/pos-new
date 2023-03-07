@@ -8,12 +8,13 @@ import { useTheme } from '@react-navigation/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { changeCategoryANDgetProduct } from '../../../Store/Actions/HomeAction';
+import LocalizationContext from '../../../../LocalizationContext';
 
 function LeftSide(props) {
-
+  const { t } = React.useContext(LocalizationContext);
   const { colors } = useTheme();
   const [indexCatgory, setIndexCatgory] = React.useState(0);
-  
+
   return (
     <View style={{ flex: 1, marginVertical: heightPercentageToDP('3%') }}>
       <View
@@ -45,7 +46,7 @@ function LeftSide(props) {
             fontSize: heightPercentageToDP('2.5%'),
             marginLeft: widthPercentageToDP('1%'),
           }}>
-          Customer
+          {t('Customer')}
         </Text>
       </View>
 
@@ -91,7 +92,7 @@ function LeftSide(props) {
                     indexCatgory == index ? colors.light : colors.PrimaryColor,
                   fontSize: heightPercentageToDP('2.2%'),
                 }}>
-                {item.name_fr}
+                {index == 0 ? t("ALL") : item.name_fr}
               </Text>
             </TouchableOpacity>
           );

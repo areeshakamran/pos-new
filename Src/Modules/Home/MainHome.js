@@ -6,10 +6,11 @@ import CustomModal from '../../Component/CustomModal';
 import CenterView from './Components/CenterView';
 import LeftSide from './Components/LeftSide';
 import RightSide from './Components/RightSide';
+import LocalizationContext from '../../../LocalizationContext';
 
 export default function MainHome(props) {
   const [OpenCashModal, setOpenCashModal] = React.useState(true);
-
+  const { t } = React.useContext(LocalizationContext);
   const { colors } = useTheme();
   return (
     <View style={{
@@ -49,8 +50,8 @@ export default function MainHome(props) {
       </View>
 
       <CustomModal
-        title="Open Cash Adjustment"
-        PlaceholderTitle="Balance"
+        title={t("Open Cash Adjustment")}
+        PlaceholderTitle={t("Balance")}
         modalVisible={OpenCashModal}
         onModalClose={() => {
           setOpenCashModal(false);

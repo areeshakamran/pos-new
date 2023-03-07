@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -24,6 +24,8 @@ import store from '../../../Store';
 import { Refreshftn, SearchProduct } from '../../../Store/Actions/HomeAction';
 import HomeCustomeButton from './HomeCustomeButton';
 import { StackActions } from '@react-navigation/native';
+import LocalizationContext from '../../../../LocalizationContext';
+
 
 function CenterViewHeader(props) {
   const popAction = StackActions.pop(1);
@@ -33,6 +35,7 @@ function CenterViewHeader(props) {
 
   const [printers, setPrinters] = useState([]);
   const [currentPrinter, setCurrentPrinter] = useState();
+  const { t } = useContext(LocalizationContext);
 
   const connectPrinter = async (printer) => {
     if (printer.length > 0) {
@@ -121,7 +124,7 @@ function CenterViewHeader(props) {
         alignItems: 'center',
       }}>
       <CustomInput
-        placeholder="Search Products"
+        placeholder={t('Search Products')}
         placeholderTextColor={colors.PrimaryColor}
         style={{
           height: heightPercentageToDP('5%'),
@@ -147,10 +150,10 @@ function CenterViewHeader(props) {
         }}
       />
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
+       
         <TouchableOpacity
           // onPress={()=> props?.navigation.dispatch(popAction)}
-          onPress={()=> props?.navigation.navigate('userList')}
+          onPress={() => props?.navigation.navigate('userList')}
           style={[
             styles.IconView,
             {

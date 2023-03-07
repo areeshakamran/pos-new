@@ -11,12 +11,14 @@ import CustomePayingView from '../../../Component/CustomePayingView';
 import { NumberFormat } from '../../../Confiq/Helper';
 import { ChangePaymentType, UserPay } from '../../../Store/Actions/CartAction';
 import HomeCustomeButton from '../../Home/Components/HomeCustomeButton';
+import LocalizationContext from '../../../../LocalizationContext';
 
 function CalculationScreen(props) {
   const [paymentSwtich, setPaymentSwitch] = React.useState(true);
   const [total, settotal] = useState(0)
   const [amountleft, setamountleft] = useState(0)
   const [change, setchange] = useState(0)
+  const { t } = React.useContext(LocalizationContext);
 
   useEffect(() => {
     settotal(props?.Cart?.total)
@@ -40,23 +42,23 @@ function CalculationScreen(props) {
           marginTop: heightPercentageToDP('5%'),
         }}>
         <CustomePayingView
-          title="Total Amount"
-          value={`${NumberFormat(total).replace(/\./g,',')} TND`}
+          title={t("Total Amount")}
+          value={`${NumberFormat(total).replace(/\./g, ',')} TND`}
           color={colors.DraftColor}
         />
         <CustomePayingView
-          title="Amount Pay"
-          value={props?.Cart.customerpay == '' ? '0 TND' : `${NumberFormat(props?.Cart.customerpay).replace(/\./g,',')} TND`}
+          title={t("Amount Pay")}
+          value={props?.Cart.customerpay == '' ? '0 TND' : `${NumberFormat(props?.Cart.customerpay).replace(/\./g, ',')} TND`}
           color={colors.DiscountColor}
         />
         <CustomePayingView
-          title="Amount Left"
-          value={`${NumberFormat(amountleft).replace(/\./g,',')} TND`}
+          title={t("Amount Left")}
+          value={`${NumberFormat(amountleft).replace(/\./g, ',')} TND`}
           color={colors.SuccessColor}
         />
         <CustomePayingView
-          title="Change"
-          value={`${NumberFormat(change).replace(/\./g,',')} TND`}
+          title={t("Change")}
+          value={`${NumberFormat(change).replace(/\./g, ',')} TND`}
           color={colors.deleteColor}
         />
       </View>
@@ -74,7 +76,7 @@ function CalculationScreen(props) {
             color: colors.PrimaryColor,
             fontSize: heightPercentageToDP('2%'),
           }}>
-          {'Amount'}
+          {t('Amount')}
         </Text>
 
         <View style={{
@@ -92,7 +94,7 @@ function CalculationScreen(props) {
             fontFamily: 'Poppins-Regular',
             fontSize: heightPercentageToDP('2.5%'),
           }}>
-            {(props?.Cart?.customerpay.toString()).replace(/\./g,',') }
+            {(props?.Cart?.customerpay.toString()).replace(/\./g, ',')}
           </Text>
         </View>
 
@@ -104,7 +106,7 @@ function CalculationScreen(props) {
               fontSize: heightPercentageToDP('2.2%'),
               textAlign: 'center',
             }}>
-            {'Payment Method: '}
+            {`${t('Payment Method')}: `}
           </Text>
 
           <HomeCustomeButton
@@ -112,7 +114,7 @@ function CalculationScreen(props) {
               setPaymentSwitch(!paymentSwtich)
               props?.ChangePaymentType(!paymentSwtich)
             }}
-            title={'Cash'}
+            title={t('Cash')}
             style={[
               styles.fixedPercetageView,
               {
@@ -137,7 +139,7 @@ function CalculationScreen(props) {
               setPaymentSwitch(!paymentSwtich)
               props?.ChangePaymentType(!paymentSwtich)
             }}
-            title={'Credit Card'}
+            title={t('Credit Card')}
             style={[
               styles.fixedPercetageView,
               {

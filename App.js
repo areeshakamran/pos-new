@@ -3,14 +3,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ActivityIndicator, LogBox, Modal, StatusBar, View } from 'react-native';
 import { connect } from 'react-redux';
+import LocalizationContext from './LocalizationContext';
 import AuthNavigation from './Src/Modules/Auth/Navigation/AuthNavigation';
 import Checkout from './Src/Modules/CheckOutScreen/CheckOut';
 import Draft from './Src/Modules/DraftScreens/Draft';
 import MainHome from './Src/Modules/Home/MainHome';
 import SalesDatail from './Src/Modules/SalesScreen/Components/SalesDetail';
-import Sales from './Src/Modules/SalesScreen/Sales';
 import ReturnOrder from './Src/Modules/SalesScreen/ReturnOrder';
+import Sales from './Src/Modules/SalesScreen/Sales';
 import Table from './Src/Modules/TableScreen/Table';
+import EditLanguage from './Src/Modules/EditLanguage/EditLanguage';
 
 LogBox.ignoreAllLogs()
 
@@ -53,6 +55,7 @@ const App = (props) => {
           <Stack.Screen name="CheckOut" component={Checkout} />
           <Stack.Screen name="Main" component={MainHome} />
           <Stack.Screen name="ReturnOrder" component={ReturnOrder} />
+          <Stack.Screen name="EditLanguage" component={EditLanguage} />
         </Stack.Navigator>
       </NavigationContainer>
       <Modal
