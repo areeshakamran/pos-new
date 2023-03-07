@@ -5,7 +5,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import LocalizationContext from '../../LocalizationContext';
 
-export default function SwitchLanguage() {
+export default function SwitchLanguageDropDown() {
     const { setLocale, locale } = useContext(LocalizationContext);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(locale);
@@ -39,31 +39,33 @@ export default function SwitchLanguage() {
                 setOpen={setOpen}
                 setValue={setValue}
                 onChangeValue={(value) => {
-                    console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD", value)
                     setValue(value)
                     setLocale(value)
-                    try {
-                        AsyncStorage.setItem('language', JSON.stringify(value));
-                    } catch (error) {
-                        console.log(error)
-
-                    }
+                    AsyncStorage.setItem(
+                        'language',
+                        JSON.stringify(value),
+                    );
                 }}
                 setItems={setItems}
                 textStyle={{
-                    fontSize: heightPercentageToDP('2.5%')
+                    fontSize: heightPercentageToDP('1.8%')
                 }}
                 style={{
-                    borderColor: "#00598E",
-                    elevation: 10,
+
+                    borderWidth: 0,
                     alignItems: "center",
                     justifyContent: "center",
-                    minHeight: heightPercentageToDP('10'),
-
+                    minHeight: heightPercentageToDP('8'),
+                    maxWidth: widthPercentageToDP('10'),
+                    borderRadius: 0
                 }}
                 dropDownContainerStyle={{
-                    borderColor: "#00598E",
+                    borderWidth: 0,
+                    minHeight: heightPercentageToDP('8'),
+                    maxWidth: widthPercentageToDP('10'),
+                    borderRadius: 0,
                 }}
+
             />
         </View>
     )

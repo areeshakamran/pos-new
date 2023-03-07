@@ -23,7 +23,7 @@ const wait = timeout => {
 };
 function UsersList(props) {
   const { colors } = useTheme();
-  const { setLocale, t, locale } = React.useContext(LocalizationContext);
+  const { t } = React.useContext(LocalizationContext);
 
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(async () => {

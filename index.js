@@ -40,10 +40,14 @@ const AppRedux = () => {
     const getLanguage = async () => {
         try {
             const lang = await AsyncStorage.getItem('language');
-            if (lang !== null) {
-                const parse = JSON.parse(lang)
+            const parse = JSON.parse(lang)
+            console.log("DDDDDDDDDDDDDDD" ,parse )
+            if (parse !== null) {
+                
                 handleLocalizationChange(parse);
+
             } else {
+                console.log("FFFFFFFFFFuck")
                 handleLocalizationChange('en')
             };
         } catch (e) {
@@ -62,11 +66,12 @@ const AppRedux = () => {
     const updatelanguage = async () => {
         const updatelang = await AsyncStorage.getItem('Updatelanguage');
         const parselang = JSON.parse(updatelang)
-        for (let i = 0; i < Object.keys(parselang).length; i++) {
-            let index = Object.keys(parselang)[i]
-            fn[index] = parselang[index]
+        if (parselang != null) {
+            for (let i = 0; i < Object.keys(parselang).length; i++) {
+                let index = Object.keys(parselang)[i]
+                fn[index] = parselang[index]
+            }
         }
-
     }
 
     React.useEffect(() => {

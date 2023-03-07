@@ -1,11 +1,11 @@
 import { useTheme } from '@react-navigation/native';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Platform,
-  StyleSheet,
-  ToastAndroid,
+  StyleSheet, Text, ToastAndroid,
   TouchableOpacity,
-  View
+  View,
+  Image
 } from 'react-native';
 import {
   heightPercentageToDP,
@@ -16,6 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
+import LocalizationContext from '../../../../LocalizationContext';
 import Loader from '../../../Assets/Images/loader.svg';
 import Search from '../../../Assets/Images/search.svg';
 import Table from '../../../Assets/Images/table.svg';
@@ -23,12 +24,10 @@ import CustomInput from '../../../Component/CustomInput';
 import store from '../../../Store';
 import { Refreshftn, SearchProduct } from '../../../Store/Actions/HomeAction';
 import HomeCustomeButton from './HomeCustomeButton';
-import { StackActions } from '@react-navigation/native';
-import LocalizationContext from '../../../../LocalizationContext';
+import SwitchLanguageDropDown from '../../../Component/SwitchLanguageDropDown';
 
 
 function CenterViewHeader(props) {
-  const popAction = StackActions.pop(1);
   const [barcode, setBarcode] = React.useState(false);
   const { colors } = useTheme();
   const [search, setsearch] = useState('');
@@ -36,6 +35,7 @@ function CenterViewHeader(props) {
   const [printers, setPrinters] = useState([]);
   const [currentPrinter, setCurrentPrinter] = useState();
   const { t } = useContext(LocalizationContext);
+  const [showsetting, setshowsetting] = useState(false)
 
   const connectPrinter = async (printer) => {
     if (printer.length > 0) {
@@ -63,18 +63,6 @@ function CenterViewHeader(props) {
       InitilizePrinter()
     }
   };
-
-  // const InitilizePrinter = async () => {
-  //   if (Platform.OS == 'android') {
-  //     await USBPrinter.init().then(async () => {
-  //       await USBPrinter.getDeviceList()
-  //         .then(setPrinters)
-  //         .catch(e => console.log('Printer Not Found!', e));
-  //     }).catch(e => console.log('Printer init Not Found!', e));
-  //   }
-  //   connectPrinter(printers);
-  // };
-
   const InitilizePrinter = async () => {
     if (Platform.OS == 'android') {
       await USBPrinter.init().then(async () => {
@@ -101,7 +89,6 @@ function CenterViewHeader(props) {
         )
       });
     }
-    // connectPrinter(printers);
   };
 
   useEffect(() => {
@@ -114,6 +101,7 @@ function CenterViewHeader(props) {
     } else if (str == 'table') {
       props.navigation.navigate('Table');
     }
+    setshowsetting(false)
   };
 
   return (
@@ -149,129 +137,186 @@ function CenterViewHeader(props) {
           store.dispatch(SearchProduct(search));
         }}
       />
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-       
+      <View style={{
+        width: widthPercentageToDP('10')
+      }}>
         <TouchableOpacity
-          // onPress={()=> props?.navigation.dispatch(popAction)}
-          onPress={() => props?.navigation.navigate('userList')}
-          style={[
-            styles.IconView,
-            {
-              backgroundColor: colors.light,
-              borderColor: colors.PrimaryColor,
-              elevation: 10,
-              marginRight: widthPercentageToDP('1%'),
-              paddingHorizontal: widthPercentageToDP('0.8%'),
-            },
-          ]}>
-          <AntDesign
-            name="logout"
-            size={widthPercentageToDP('1.5%')}
-            color={colors.PrimaryColor}
-          />
+          onPress={() => setshowsetting(!showsetting)}
+          style={{
+            width: widthPercentageToDP('10'),
+            height: heightPercentageToDP('8'),
+            backgroundColor: 'white',
+            borderTopRightRadius: 8,
+            borderTopLeftRadius: 8,
+            borderBottomRightRadius: showsetting ? 0 : 8,
+            borderBottomLeftRadius: showsetting ? 0 : 8,
+            justifyContent: "center",
+            alignItems: "center",
+            elevation: 1,
+            flexDirection: "row"
+          }}>
+          <AntDesign style={{ marginRight: widthPercentageToDP('0.3') }} name='setting' color={colors.PrimaryColor} />
+          <Text
+            style={{
+              fontSize: heightPercentageToDP('2.7'),
+              color: colors.PrimaryColor,
+            }}
+          >{t('Setting')}</Text>
+
+
         </TouchableOpacity>
+        {showsetting && (
+          <View style={{
+            position: "absolute",
+            zIndex: 99999,
+            width: widthPercentageToDP('10'),
+            backgroundColor: 'white',
+            top: heightPercentageToDP('8'),
+            borderBottomRightRadius: 8,
+            borderBottomLeftRadius: 8,
+            // elevation: 1
 
-        <View
-          style={[
-            styles.IconView,
-            {
-              backgroundColor: colors.light,
-              borderColor: colors.PrimaryColor,
-              elevation: 10,
-              marginHorizontal: widthPercentageToDP('1%'),
-              paddingHorizontal: widthPercentageToDP('0.8%'),
-            },
-          ]}>
-          {props?.Shared?.Internet ? (
-            <AntDesign
-              name="wifi"
-              size={widthPercentageToDP('1.5%')}
-              color={colors.PrimaryColor}
-            />
-          ) : (
-            <Feather
-              name="wifi-off"
-              size={widthPercentageToDP('1.5%')}
-              color={colors.PrimaryColor}
-            />
-          )}
-        </View>
-        <View
-          style={[
-            styles.IconView,
-            {
-              backgroundColor: colors.light,
-              borderColor: colors.PrimaryColor,
-              elevation: 10,
-              // marginRight: widthPercentageToDP('1%'),
-              paddingHorizontal: widthPercentageToDP('0.8%'),
-            },
-          ]}>
-          {printers.length > 0 ? (
-            <MaterialCommunityIcons
-              onPress={() => connectPrinter(printers)}
-              name="printer"
-              size={widthPercentageToDP('1.5%')}
-              color={colors.PrimaryColor}
-            />
-          ) : (
-            <MaterialCommunityIcons
-              onPress={() => connectPrinter(printers)}
-              name="printer-off-outline"
-              size={widthPercentageToDP('1.5%')}
-              color={colors.PrimaryColor}
-            />
-          )}
-        </View>
+          }}>
+            <View style={{ backgroundColor: "#fff" }}>
+              <TouchableOpacity
+                onPress={() => props?.navigation.navigate('userList')}
+                style={[
+                  styles.IconView,
+                  {
+                    backgroundColor: "#fff",
+                    alignItems: "center"
+                  },
+                ]}>
+                <AntDesign
+                  name="logout"
+                  size={widthPercentageToDP('1.5%')}
+                  color={colors.PrimaryColor}
+                />
+              </TouchableOpacity>
 
-        <HomeCustomeButton
-          onpress={() => props?.Refreshftn()}
-          Icon={Loader}
-          IconWidth={widthPercentageToDP('3%')}
-          IconHeight={heightPercentageToDP('3%')}
-          style={[
-            styles.IconView,
-            {
-              backgroundColor: colors.PrimaryColor,
-              marginHorizontal: widthPercentageToDP('1%'),
-            },
-          ]}
-        />
+              <View
+                style={[
+                  styles.IconView,
+                  {
+                    backgroundColor: colors.light,
+                    alignItems: "center"
+                  },
+                ]}>
+                {props?.Shared?.Internet ? (
+                  <AntDesign
+                    name="wifi"
+                    size={widthPercentageToDP('1.5%')}
+                    color={colors.PrimaryColor}
+                  />
+                ) : (
+                  <Feather
+                    name="wifi-off"
+                    size={widthPercentageToDP('1.5%')}
+                    color={colors.PrimaryColor}
+                  />
+                )}
+              </View>
+              <View
+                style={[
+                  styles.IconView,
+                  {
+                    backgroundColor: colors.light,
+                    borderColor: colors.PrimaryColor,
+                    alignItems: "center"
+                  },
+                ]}>
+                {printers.length > 0 ? (
+                  <MaterialCommunityIcons
+                    onPress={() => {
+                      connectPrinter(printers)
+                      setshowsetting(false)
+                    }}
+                    name="printer"
+                    size={widthPercentageToDP('1.5%')}
+                    color={colors.PrimaryColor}
+                  />
+                ) : (
+                  <MaterialCommunityIcons
+                    onPress={() =>{ connectPrinter(printers)
+                      setshowsetting(false)
+                    }}
+                    name="printer-off-outline"
+                    size={widthPercentageToDP('1.5%')}
+                    color={colors.PrimaryColor}
+                  />
+                )}
+              </View>
 
-        {/* <HomeCustomeButton
-          onpress={() => ClickAble('barCode')}
-          Icon={Barcode}
-          IconWidth={widthPercentageToDP('3%')}
-          IconHeight={heightPercentageToDP('3%')}
-          style={[
-            styles.IconView,
-            {
-              backgroundColor: colors.light,
-              borderColor: colors.PrimaryColor,
-              borderWidth: barcode ? 2 : 0,
-              marginHorizontal: widthPercentageToDP('1%'),
-            },
-          ]}
-        /> */}
+              <HomeCustomeButton
+                onpress={() => {
+                  props?.Refreshftn() 
+                  setshowsetting(false)
+                
+                }}
+                Icon={Loader}
+                IconWidth={widthPercentageToDP('3%')}
+                IconHeight={heightPercentageToDP('3%')}
+                style={[
+                  styles.IconView,
+                  {
+                    backgroundColor: colors.PrimaryColor,
+                    alignItems: "center"
+                  },
+                ]}
+              />
+              <HomeCustomeButton
+                onpress={() => {
+                  ClickAble('table');
+                }}
+                Icon={Table}
+                IconWidth={widthPercentageToDP('3%')}
+                IconHeight={heightPercentageToDP('3%')}
+                style={[
+                  styles.IconView,
+                  {
+                    backgroundColor: colors.light,
+                    alignItems: "center"
+                  },
+                ]}
+              />
+              <View style={{
+                marginTop: heightPercentageToDP('0.5')
+              }}>
+                <SwitchLanguageDropDown />
+              </View>
+              <TouchableOpacity
+                onPress={() => props?.navigation.navigate('EditLanguage')}
+                style={[
+                  styles.IconView,
+                  {
+                    backgroundColor: "#fff",
+                    
+                    flexDirection: "row",
+                   paddingHorizontal:widthPercentageToDP('1.5')
+                  },
+                ]}>
+                <Image
+                  resizeMode='stretch'
+                  style={{
+                    width: widthPercentageToDP('2.2'),
+                    height: heightPercentageToDP('4.5'),
+                    marginRight:10
+                  }}
+                  source={require('../../../Assets/fr.png')} />
+                  <Text style={{
+                    fontSize:heightPercentageToDP('2'),
+                    alignSelf:"center"
+                    // marginLeft:heightPercentageToDP('2')
+                  }}>Edit</Text>
+              </TouchableOpacity>
 
-        <HomeCustomeButton
-          onpress={() => {
-            ClickAble('table');
-          }}
-          Icon={Table}
-          IconWidth={widthPercentageToDP('3%')}
-          IconHeight={heightPercentageToDP('3%')}
-          style={[
-            styles.IconView,
-            {
-              backgroundColor: colors.light,
-              borderColor: colors.PrimaryColor,
-              borderWidth: props.Table.currentTable.length ? 2 : 0,
-            },
-          ]}
-        />
+            </View>
+          </View>
+
+        )}
+
       </View>
-    </View>
+    </View >
   );
 }
 
@@ -280,7 +325,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: widthPercentageToDP('0.5%'),
     paddingVertical: widthPercentageToDP('0.7%'),
     borderRadius: 2,
-    elevation: 10,
+    elevation: 1,
   },
 });
 

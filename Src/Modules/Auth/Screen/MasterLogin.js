@@ -18,7 +18,7 @@ import SwitchLanguage from '../../../Component/SwitchLanguage';
 
 
 export default function MasterLogin(props) {
-  const { setLocale, t, locale } = useContext(LocalizationContext);
+  const { t, locale } = useContext(LocalizationContext);
   const [userName, setUsername] = useState('komail@gmail.com')
   const [password, setpassword] = useState('123456789')
   const { colors } = useTheme();
@@ -43,56 +43,6 @@ export default function MasterLogin(props) {
         }}>
           <SwitchLanguage />
         </View>
-
-        {/* <View style={{
-          position: "absolute",
-          right: wp('5'),
-          top: hp('10'),
-          flexDirection: "row",
-          zIndex: 9999999999999
-        }}>
-          <Text
-            onPress={async () => {
-              setLocale('en')
-              await AsyncStorage.setItem(
-                'language',
-                JSON.stringify('en'),
-              );
-            }}
-            style={{
-              textAlign: 'center',
-              fontFamily: "Poppins-Bold",
-              color: locale == 'en' ? colors.PrimaryColor : '#85C9E9',
-              fontSize: hp('3.5%'),
-              marginRight: wp('2')
-
-            }}>
-            English
-          </Text>
-          <TouchableOpacity
-            onPress={async () => {
-              setLocale('fn')
-              await AsyncStorage.setItem(
-                'language',
-                JSON.stringify('fn'),
-              );
-            }}
-          >
-            <Text
-              style={{
-                textAlign: 'center',
-                fontFamily: "Poppins-Bold",
-                color: locale == 'fn' ? colors.PrimaryColor : "#0094B7",
-                fontSize: hp('3.5%'),
-
-              }}>
-              French
-            </Text>
-
-          </TouchableOpacity>
-
-
-        </View> */}
         <View style={{
           position: "absolute",
           left: wp('5'),

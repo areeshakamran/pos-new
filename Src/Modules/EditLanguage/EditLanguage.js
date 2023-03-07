@@ -11,7 +11,7 @@ import CustomButton from '../../Component/Button/CustomButton'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function EditLanguage(props) {
-    const { t } = React.useContext(LocalizationContext);
+    const { t, setLocale } = React.useContext(LocalizationContext);
     const { colors } = useTheme();
     const [data, setdata] = useState({ ...fn })
     const saveToken = async () => {
@@ -23,6 +23,9 @@ export default function EditLanguage(props) {
             'Updatelanguage',
             JSON.stringify(data),
         );
+        setLocale('en')
+       
+        props?.navigation.goBack()
 
     }
     return (
