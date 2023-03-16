@@ -3,6 +3,7 @@ import { useTheme } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
+  heightPercentageToDP,
   heightPercentageToDP as hp,
   widthPercentageToDP as wp
 } from 'react-native-responsive-screen';
@@ -22,7 +23,7 @@ export default function MasterLogin(props) {
   const [userName, setUsername] = useState('komail@gmail.com')
   const [password, setpassword] = useState('123456789')
   const { colors } = useTheme();
-  useEffect(()=> {
+  useEffect(() => {
 
   }, [locale])
   return (
@@ -39,7 +40,7 @@ export default function MasterLogin(props) {
           top: hp('10'),
           flexDirection: "row",
           zIndex: 9999999999999,
-          width:100,
+          width: 100,
         }}>
           <SwitchLanguage />
         </View>
@@ -80,7 +81,7 @@ export default function MasterLogin(props) {
             onChangeText={(txt) => setUsername(txt)}
             placeholderColor={colors.PrimaryColor}
             Icon={() => (
-              <Fontisto name="email" color={colors.PrimaryColor} size={22} />
+              <Fontisto name="email" color={colors.PrimaryColor} size={18} />
             )}
           />
           <TextInputComponent
@@ -89,14 +90,18 @@ export default function MasterLogin(props) {
             value={password}
             onChangeText={(txt) => setpassword(txt)}
             Icon={() => (
-              <Octicons name="lock" color={colors.PrimaryColor} size={22} />
+              <Octicons name="lock" color={colors.PrimaryColor} size={18} />
             )}
           />
-          <CustomButton
-            title={t('continue')}
-            onPress={() => store.dispatch(MasterLoginftn(userName, password))
-            }
-          />
+          <View style={{
+            marginTop:heightPercentageToDP('3')
+          }}>
+            <CustomButton
+              title={t('continue')}
+              onPress={() => store.dispatch(MasterLoginftn(userName, password))
+              }
+            />
+          </View>
         </View>
       </ScrollView>
     </Container>
@@ -108,8 +113,8 @@ const styles = StyleSheet.create({
     paddingVertical: wp('3%'),
     paddingHorizontal: wp('3%'),
     backgroundColor: '#fff',
-    elevation: 20,
-    borderRadius: 2,
+    elevation: 25,
+    borderRadius: 12,
     width: wp('35%'),
   },
 });

@@ -19,16 +19,19 @@ export default function CustomInput(props) {
         style={props.style}
       />
       {props?.Search ? (
-        <props.Search
-          width={props.IconWidth}
-          height={props.IconHeight}
-          style={{
-            position: 'absolute',
-            zIndex: 1,
-            right: widthPercentageToDP('0.5%'),
-            top: heightPercentageToDP('1%'),
-          }}
-        />
+      
+          <props.Search
+            width={props.IconWidth}
+            height={props.IconHeight}
+            style={{
+              position: 'absolute',
+              zIndex: 1,
+              right: widthPercentageToDP('0.5%'),
+              top: heightPercentageToDP('2.5%'),
+
+            }}
+          />
+      
       ) : null}
     </View>
   );

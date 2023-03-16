@@ -526,6 +526,7 @@ function CartItemsCompnentRight(props) {
                 backgroundColor: 'white',
                 borderColor: colors.PrimaryColor,
                 borderWidth: 1,
+                borderRadius:5
               },
             ]}
             txtStyle={[
@@ -546,6 +547,7 @@ function CartItemsCompnentRight(props) {
                 backgroundColor: 'white',
                 borderColor: colors.PrimaryColor,
                 borderWidth: 1,
+                borderRadius:5
               },
             ]}
             txtStyle={[
@@ -696,7 +698,7 @@ function CartItemsCompnentRight(props) {
             title={props?.main ? t('Check Out') : t('Complete')}
             style={{
               padding: widthPercentageToDP('1%'),
-              borderRadius: 2,
+              borderRadius: 4,
               alignItems: 'center',
               justifyContent: 'center',
               backgroundColor: colors.SuccessColor,
@@ -721,9 +723,11 @@ function CartItemsCompnentRight(props) {
         style={[
           {
             backgroundColor: '#fff',
-            borderRadius: 2,
-            width: widthPercentageToDP('30%'),
-            height: heightPercentageToDP('60%'),
+            borderRadius: 12,
+            width: widthPercentageToDP('50'),
+            height: heightPercentageToDP('65%'),
+            paddingVertical: heightPercentageToDP('2'),
+            elevation: 100,
           },
         ]}
         value={modifiers}

@@ -110,24 +110,28 @@ function CenterViewHeader(props) {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+       
       }}>
       <CustomInput
         placeholder={t('Search Products')}
         placeholderTextColor={colors.PrimaryColor}
         style={{
-          height: heightPercentageToDP('5%'),
+          height: heightPercentageToDP('8'),
           padding: widthPercentageToDP('0.5%'),
           fontSize: heightPercentageToDP('2%'),
           color: colors.PrimaryColor,
           width: widthPercentageToDP('22%'),
-          borderRadius: 2,
+          borderRadius: 12,
           fontFamily: 'Poppins-Regular',
+          
         }}
         ViewStyle={{
           backgroundColor: 'white',
           elevation: 5,
-          width: widthPercentageToDP('25%'),
-          borderRadius: 2,
+          width: widthPercentageToDP('30'),
+          borderRadius: 5,
+          paddingLeft:widthPercentageToDP('0.8'),
+         
         }}
         onChangeText={text => setsearch(text)}
         Search={Search}

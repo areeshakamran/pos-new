@@ -15,8 +15,17 @@ export default function CustomButton({ onPress, title }) {
         justifyContent: 'center',
         paddingVertical: hp('2%'),
         marginVertical: hp('1%'),
-        borderRadius: 2,
+        borderRadius: 6,
         marginVertical: hp('2%'),
+        shadowColor: colors.PrimaryColor,
+        shadowOffset: {
+          width: 0,
+          height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        
+        elevation: 100,
       }}>
       <Text
         style={{

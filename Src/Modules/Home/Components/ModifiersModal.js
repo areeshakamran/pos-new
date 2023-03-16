@@ -185,7 +185,7 @@ export default function ModifiersModal(props) {
                         title={'Add to Chart'}
                         style={{
                             padding: widthPercentageToDP('0.5%'),
-                            borderRadius: 2,
+                            borderRadius: 4,
                             alignItems: 'center',
                             justifyContent: 'center',
                             alignSelf: 'center',

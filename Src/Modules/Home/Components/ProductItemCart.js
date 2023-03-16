@@ -55,9 +55,11 @@ export default function ProductItemCart(props) {
                 style={[
                     {
                         backgroundColor: '#fff',
-                        borderRadius: 2,
-                        width: widthPercentageToDP('30%'),
-                        height: heightPercentageToDP('60%'),
+                        borderRadius: 12,
+                        width: widthPercentageToDP('50'),
+                        height: heightPercentageToDP('65%'),
+                        paddingVertical:heightPercentageToDP('2'),
+                        elevation: 100,
                     },
                 ]}
                 value={props.Item.modifiers}

@@ -61,8 +61,8 @@ export default function PinScreen(props) {
           maxLength={4}
           value={pin}
           style={{
-            backgroundColor: 'rgba(128,173,199,0.2)',
-            width: wp('8%') * 3,
+            backgroundColor: '#fff',
+            width: wp('8%') * 3.2,
             height: wp('4%'),
             borderRadius: 2,
             alignSelf: 'center',
@@ -72,7 +72,9 @@ export default function PinScreen(props) {
             letterSpacing: 40,
             color: colors.PrimaryColor,
             borderColor: colors.PrimaryColor,
-            borderWidth: 1,
+            // borderWidth: 1,
+            elevation:12,
+            borderRadius:6
           }}
         />
         <View style={{ alignItems: 'center', marginTop: hp('2.5%') }}>
@@ -94,13 +96,15 @@ export default function PinScreen(props) {
                     backgroundColor: colors.light,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderWidth: 1,
-                    margin: wp('0.3%'),
+                    // borderWidth: 1,
+                    margin: wp('1'),
                     borderColor: colors.PrimaryColor,
-                    borderTopRightRadius: index == 1 ? 1 : 0,
-                    borderTopLeftRadius: index == 0 ? 1 : 0,
-                    borderBottomRightRadius: index == 1 ? 1 : 0,
-                    borderBottomLeftRadius: index == 1 ? 1 : 0,
+                    borderRadius: 6,
+                    elevation: 8
+                    // borderTopRightRadius: index == 1 ? 1 : 0,
+                    // borderTopLeftRadius: index == 0 ? 1 : 0,
+                    // borderBottomRightRadius: index == 1 ? 1 : 0,
+                    // borderBottomLeftRadius: index == 1 ? 1 : 0,
                   }}>
                   <Text
                     style={{
@@ -113,7 +117,7 @@ export default function PinScreen(props) {
               );
             }}
           />
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', marginTop: heightPercentageToDP('2.4') , justifyContent:"space-between" , width:'82%' }}>
             <View
               style={{
                 width: wp('7%'),
@@ -132,10 +136,11 @@ export default function PinScreen(props) {
                 backgroundColor: colors.light,
                 justifyContent: 'center',
                 alignItems: 'center',
-                borderWidth: 1,
+                // borderWidth: 1,
+                // margin: wp('1'),
                 borderColor: colors.PrimaryColor,
-                borderBottomLeftRadius: 1,
-                borderBottomRightRadius: 1,
+                borderRadius: 6,
+                elevation: 8
               }}>
               <Text
                 style={{
@@ -154,10 +159,17 @@ export default function PinScreen(props) {
               style={[
                 styles.fixedPercetageView,
                 {
+                  width: wp('7%'),
+                  height: wp('5%'),
+                  backgroundColor: colors.light,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  // borderWidth: 1,
+                  // margin: wp('1'),
                   borderColor: colors.PrimaryColor,
-                  padding: widthPercentageToDP('1%'),
-                  backgroundColor: 'transparent',
-                  margin: widthPercentageToDP('0.5%'),
+                  borderRadius: 6,
+                  elevation: 8
+
                 },
               ]}
               txtStyle={[
@@ -172,9 +184,9 @@ export default function PinScreen(props) {
         </View>
         <View
           style={{
-            width: wp('7%') * 3,
+            width: wp('7%') * 3.5,
             alignSelf: 'center',
-            marginTop: hp('2.5%'),
+            marginTop: hp('4%'),
           }}>
           <CustomButton
             onPress={() => store.dispatch(VerifyCeshiers(props?.route?.params?.pin, pin, props?.route?.params?.isActive, props?.navigation))}
@@ -191,7 +203,7 @@ const styles = StyleSheet.create({
     padding: wp('2.5%'),
     backgroundColor: '#fff',
     elevation: 20,
-    borderRadius: 2,
+    borderRadius: 8,
     width: wp('35%'), // 80% of width device screen,
     paddingVertical: hp('3%'),
   },

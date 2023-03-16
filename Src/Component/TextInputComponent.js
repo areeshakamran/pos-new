@@ -18,18 +18,24 @@ export default function TextInputComponent({
   return (
     <View
       style={{
-        borderWidth: 1,
-        borderRadius: 2,
+        // borderWidth: 1,
+        borderRadius: 8,
         borderColor: colors.PrimaryColor,
         paddingLeft: widthPercentageToDP('1.5%'),
         flexDirection: 'row',
-        marginTop: heightPercentageToDP('2%'),
+        marginTop: heightPercentageToDP('4'),
+        height:heightPercentageToDP('10'),
+        backgroundColor:"#fff",
+        elevation:7
       }}>
       {Icon ? (
         <View
           style={{
             justifyContent: 'center',
             marginRight: widthPercentageToDP('0.5%'),
+            width:widthPercentageToDP('3'),
+            justifyContent:"center",
+            alignItems:"center"
           }}>
           <Icon />
         </View>

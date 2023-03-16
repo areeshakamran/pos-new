@@ -25,6 +25,7 @@ export default function CartItemsHeader(props) {
           styles.ViewStyle,
           {
             backgroundColor: colors.PrimaryColor,
+            borderRadius:5
           },
         ]}
         txtStyle={[
@@ -44,6 +45,7 @@ export default function CartItemsHeader(props) {
           styles.ViewStyle,
           {
             backgroundColor: colors.PrimaryColor,
+            borderRadius:5
           },
         ]}
         txtStyle={[
