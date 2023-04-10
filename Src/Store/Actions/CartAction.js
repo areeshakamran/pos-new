@@ -27,18 +27,23 @@ export const AddtoCart = item => {
       tempItem.quantity = 1;
       dispatch({ type: CHANGE_CART, payload: [tempItem] });
     } else {
-      const availableIndex = AlreadyCart.findIndex(obj => obj?.id == item.id);
+      const availableIndex = AlreadyCart.findIndex(obj => (obj?.id == item.id && obj?.ModifiersAdded.length == 0));
       if (availableIndex == -1) {
         item.quantity = 1;
         AlreadyCart.push(item);
         dispatch({ type: CHANGE_CART, payload: AlreadyCart });
       } else {
-        AlreadyCart[availableIndex].quantity =
-          AlreadyCart[availableIndex].quantity + 1;
-        if (item?.ModifiersAdded) {
-          AlreadyCart[availableIndex].ModifiersAdded = item?.ModifiersAdded
+        if (AlreadyCart[availableIndex].ModifiersAdded?.length == 0 && item?.ModifiersAdded.length == 0) {
+          AlreadyCart[availableIndex].quantity =
+            AlreadyCart[availableIndex].quantity + 1;
+          dispatch({ type: CHANGE_CART, payload: AlreadyCart });
+
+        } else {
+          item.quantity = 1;
+          AlreadyCart.push(item);
+          dispatch({ type: CHANGE_CART, payload: AlreadyCart });
+
         }
-        dispatch({ type: CHANGE_CART, payload: AlreadyCart });
       }
     }
   };

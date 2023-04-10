@@ -32,20 +32,20 @@ export default function ModifiersModal(props) {
         }
     }
 
-    useEffect(() => {
-        if (props?.item?.ModifiersAdded) {
-            setVariationValue(props?.item?.ModifiersAdded)
-        } else {
-            setVariationValue([])
-        }
-        if (props?.inProduct) {
-            let index = store.getState().Cart.cart.findIndex(obj => obj.id == props?.item?.id)
-            if (index != -1) {
-                setVariationValue(store.getState().Cart.cart[index].ModifiersAdded)
-            }
-        }
+    // useEffect(() => {
+    //     if (props?.item?.ModifiersAdded) {
+    //         setVariationValue(props?.item?.ModifiersAdded)
+    //     } else {
+    //         setVariationValue([])
+    //     }
+    //     if (props?.inProduct) {
+    //         let index = store.getState().Cart.cart.findIndex(obj => obj.id == props?.item?.id)
+    //         if (index != -1) {
+    //             setVariationValue(store.getState().Cart.cart[index].ModifiersAdded)
+    //         }
+    //     }
 
-    }, [props?.item, store.getState().Cart.cart])
+    // }, [props?.item, store.getState().Cart.cart])
 
     const AddtoCartftn = () => {
         if (props?.inProduct) { //modifiers pop up open in centeral view before adding to cart by long press the cart 
